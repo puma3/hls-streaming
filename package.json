@@ -27,6 +27,8 @@
     "sirv-cli": "1.0.3"
   },
   "dependencies": {
+    "@videojs/http-streaming": "^2.10.3",
+    "hls.js": "^1.0.10",
     "preact": "^10.3.2",
     "preact-render-to-string": "^5.1.4",
     "preact-router": "^3.2.1"
