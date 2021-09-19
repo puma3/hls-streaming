@@ -2,17 +2,21 @@ import { h } from "preact";
 import Hls from "hls.js";
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 
-const HlsPlayer = ({ hlsConfig = {}, src, autoPlay, ...props }) => {
+const HlsPlayer = ({
+  options: { source: src, autoplay: autoPlay },
+  ...props
+}) => {
   const hslIsSupported = Hls.isSupported();
-  const videoRef = useRef(null);
   const [hls, setHls] = useState(null);
+  const videoRef = useRef(null);
+
+  const destroyPlayer = hls ? hls.destroy : () => {};
 
   const initPlayer = useCallback(() => {
     if (!videoRef.current) return;
 
     const newHls = new Hls({
       enableWorker: false,
-      ...hlsConfig,
     });
 
     newHls.attachMedia(videoRef.current);
@@ -48,17 +52,15 @@ const HlsPlayer = ({ hlsConfig = {}, src, autoPlay, ...props }) => {
     });
 
     setHls(newHls);
-  }, [hlsConfig, autoPlay, src, videoRef]);
-
-  const destroyPlayer = () => hls && hls.destroy;
+  }, [src, videoRef]);
 
   useEffect(() => {
     if (hslIsSupported) initPlayer();
-    return destroyPlayer();
-  }, []);
+    return destroyPlayer;
+  }, [src]);
 
   return hslIsSupported ? (
-    <video ref={videoRef} {...props} />
+    <video ref={videoRef} style={{ width: "100%" }} {...props} />
   ) : (
     <video ref={videoRef} src={src} autoPlay={autoPlay} {...props} />
   );

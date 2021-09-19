@@ -1,25 +1,35 @@
 import { h } from "preact";
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useMemo, useRef } from "preact/hooks";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 
-const videoJsOptions = {
+const defaultOptions = {
   autoplay: true,
   controls: true,
   responsive: true,
   preload: true,
   fluid: true,
-  sources: [
-    {
-      src: "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
-      type: "application/x-mpegURL",
-    },
-  ],
 };
 
-const VideoJsPlayer = ({ options = videoJsOptions, onReady }) => {
+const convertOptions = ({ options: width, ...options }) => {
+  const convertedOpts = { ...defaultOptions, ...options };
+  convertedOpts.sources = [
+    {
+      src: options.source,
+      type: "application/x-mpegURL",
+    },
+  ];
+
+  return convertedOpts;
+};
+
+const VideoJsPlayer = ({ options: propOptions, onReady }) => {
   const videoRef = useRef(null);
   const playerRef = useRef(null);
+
+  const options = useMemo(() => {
+    return convertOptions(propOptions);
+  }, [propOptions]);
 
   useEffect(() => {
     if (!playerRef.current) {
@@ -30,9 +40,9 @@ const VideoJsPlayer = ({ options = videoJsOptions, onReady }) => {
         onReady && onReady(player);
       }));
     } else {
-      // const player = playerRef.current;
-      // player.autoplay(options.autoplay);
-      // player.src(options.sources);
+      const player = playerRef.current;
+      player.autoplay(options.autoplay);
+      player.src(options.sources);
     }
   }, [options, onReady]);
 
