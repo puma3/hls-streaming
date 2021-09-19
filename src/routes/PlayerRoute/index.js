@@ -1,13 +1,12 @@
 import { h } from "preact";
-import Body from "../../components/body";
 import PlayerWithControls from "../../components/PlayerWithControls";
 
 const Player = ({ player }) => {
   return (
-    <Body>
-      <h1>Player: {player}</h1>
+    <div className="container">
+      <h2>Player: {player}</h2>
       <PlayerWithControls player={player} />
-    </Body>
+    </div>
   );
 };
 

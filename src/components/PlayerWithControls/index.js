@@ -1,5 +1,5 @@
 import { Fragment, h } from "preact";
-import Controls from "../controls";
+import Controls from "../Controls";
 import HlsPlayer from "../HlsPlayer";
 import VideoJsPlayer from "../VideoJsPlayer";
 

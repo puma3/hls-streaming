@@ -1,8 +1,10 @@
-# hls-stream
+# HLS Stream
 
-## CLI Commands
+Profiler for HLS video playback
 
-``` bash
+## Execution
+
+```bash
 # install dependencies
 npm install
 
