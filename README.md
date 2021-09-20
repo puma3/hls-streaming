@@ -27,6 +27,10 @@ npm run dev
 npm run serve
 ```
 
+![image](https://user-images.githubusercontent.com/1296892/134020191-dc3dc992-b5cc-491a-9edb-f4cc3d884d3c.png)
+
+![image](https://user-images.githubusercontent.com/1296892/134020299-3ffc6c1f-53b7-4f2d-8df6-805baace022e.png)
+
 ## Objective
 
 Finding the best library for HLS video streaming:
